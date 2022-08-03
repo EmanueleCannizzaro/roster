@@ -17,27 +17,25 @@ It is not necessarily expected that you will be able to construct a solution tha
 
 ## python setup
 
-For your convenience, scripts for setting up a Python virtual environment are provided. You must have python installed to use these scripts.
+For your convenience, scripts for ``pip install`` are provided. You must have python installed to use these scripts.
+
+Note that the ``openpyxl`` dependency requires Python >= 3.5.
 
 ### MacOS and Unix
 
-To setup a Python 2.7 environment on MacOS or linux use the ``setup.sh`` script.
+To install the python package on MacOS or linux use the ``setup.sh`` script.
 
 ```bash
-hostname:username$ sh setup.sh
+hostname:username$ ./setup.sh
 ```
-
-For a Python 3 environment, use the ``setup3.sh`` script. Note that the ``openpyxl`` dependency requires Python >= 3.5.
 
 ### Windows
 
-To setup a Python 2.7 environment on Windows use the ``setup.bat`` script.
+To install the python package on Windows use the ``setup.bat`` script.
 
 ```batch
 C:\Users\username\Documents\roster> setup.bat
 ```
-
-For a Python 3 environment, use the ``setup3.bat`` script. Note that the ``openpyxl`` dependency requires Python >= 3.5.
 
 ## repository setup
 
