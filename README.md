@@ -15,6 +15,24 @@ You will be graded on:
 
 It is not necessarily expected that you will be able to construct a solution that can pass all the unittests, so focus more on quality if you feel you will have a hard time completing the project.
 
+## new features
+
+1. Added setup.py and setup.cfg to enable pip install -e .
+1. Folder structure changed to follow best practice;
+1. UnitTest file ported to pytest;
+1. Pandas-like function naming convention used where possible for a quick and ease learning;
+1. Pythonic style added where applicable;
+1. Code review performed to ensure easy maintainability;
+1. Logging functionalities added;
+
+## to do
+
+1. Implement the openpyxl functionalities;
+1. Implement the delete student function;
+1. Implement the save function in pandas;
+1. Create a jupyter notebook to document the functionalities of the class;
+
+
 ## python setup
 
 For your convenience, scripts for ``pip install`` are provided. You must have python installed to use these scripts.
