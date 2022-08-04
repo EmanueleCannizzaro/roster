@@ -2,7 +2,7 @@
 import pytest
 
 from numpy.testing import assert_almost_equal
-from openpyxl import load_workbook
+#from openpyxl import load_workbook
 import os
 import pandas
 
@@ -38,36 +38,46 @@ def test_student_names(r):
     assert_almost_equal(r.class_average, 614.1/7)
 
 def test_write(r):
-    john = r.get_student("Johnny Carson")
+    assert "Johnny Carson" in r.student_names
+    john = r.get_student_by_fullname("Johnny Carson")
     ''' Note that the index has been renamed based on assignement number! '''
     for ix, grade in [(4, 90), (7, 94), (10, 92)]:
         john.loc[ix, "Grade"] = grade
+    assert john.loc[4, 'Grade'] == 90
+    assert "Johnny Carson" in r.student_names
+    assert r.get_student_by_fullname("Johnny Carson").loc[4, 'Grade'] == 90
     assert_almost_equal(r.class_average, 616.6/7)
-    ''' Not implemanted yet! '''
-    #r.save("Jones_2019_Updated.xlsx")
 
-    ''' Not implemanted yet! '''
-    #wb = load_workbook("Jones_2019_Updated.xlsx")
-    #assert wb["Student_1"]["B12"].value == 94
-    #wb.close()
+    filename = os.path.join(os.path.dirname(os.path.dirname(roster.__file__)), "data", "Jones_2019_Updated.xlsx")
+    r.save(filename)
+
+    ''' Reimplemented without openpyxl! '''
+    desired = Roster("Jones's Roster 2019")
+    desired.data = desired.read(filename)
+    john = r.get_student_by_fullname("Johnny Carson")
+    assert john.loc[4, 'Grade'] == 90
+    assert john.loc[7, 'Grade'] == 94
+    assert john.loc[10, 'Grade'] == 92
+    assert_almost_equal(r.class_average, 616.6/7)
 
 def test_delete_student(r):
-    student_count = len(r.get_student_names())
-    assert student_count == 7
+    assert len(r.student_names) == 7
     assert r.get_student_id("William Thomas") == 5
 
-    ''' Not implemanted yet! '''
-    #r.delete_student("Allen Dalton")
+    r.data = r.delete_student("Allen Dalton")
 
-    #student_count = len(r.get_student_names())
-    #assert student_count == 6
-    #assert r.get_student_id("William Thomas") == 4
-    #r.save("Jones_2019_Reduced.xlsx")
+    assert len(r.student_names) == 6
+    assert r.get_student_id("William Thomas") == 4
 
-    #wb = load_workbook("Jones_2019_Reduced.xlsx")
-    #sheet_names = wb.get_sheet_names()
-    #assert len(sheet_names) == 7
-    #assert sheet_names[0] == "Roster"
-    #assert sheet_names[-1] == "Student_6"
-    #assert wb.get_sheet_by_name("Student_3")["B7"].value == 92
-    #wb.close()
+    filename =  os.path.join(os.path.dirname(os.path.dirname(roster.__file__)), "data", "Jones_2019_Reduced.xlsx")
+    r.save(filename)
+
+    ''' Reimplemented without openpyxl! '''
+    desired = Roster("Jones's Roster 2019")
+    desired.data = desired.read(filename)
+    assert "Roster" in desired.data.keys()
+    assert len(desired.student_names) == 6
+    assert "Allen Dalton" not in desired.student_names
+    assert "William Thomas" in desired.student_names
+    john = r.get_student_by_fullname("Johnny Carson")
+    assert john.loc[5, 'Grade'] == 92
