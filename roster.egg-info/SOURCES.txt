@@ -3,6 +3,8 @@ README.md
 pyproject.toml
 setup.cfg
 setup.py
+roster/__init__.py
+roster/roster.py
 roster.egg-info/PKG-INFO
 roster.egg-info/SOURCES.txt
 roster.egg-info/dependency_links.txt

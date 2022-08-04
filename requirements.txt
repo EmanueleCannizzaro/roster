@@ -1,2 +1,4 @@
+IPython
 openpyxl
 pandas
+pytest
